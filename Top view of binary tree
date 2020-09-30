@@ -1,0 +1,57 @@
+import java.util.*;
+public class btree
+{
+    static class Node
+    {
+        int data;
+        Node left;
+        Node right;
+        int hd;
+        Node(int item)
+        {
+            data=item;
+            left= null;
+            right= null;
+        }
+    }
+    static Node root= null;
+    
+    void top()
+    {
+        Queue<Node> q=new LinkedList<Node>();
+        q.add(root);
+        root.hd=0;
+        HashMap<Integer,Integer> hm=new HashMap<Integer,Integer>();
+        
+        while(!q.isEmpty())
+        {
+            Node temp=q.poll();
+            if(!hm.containsKey(temp.hd))
+            hm.put(temp.hd,temp.data);
+            //System.out.print(temp.data+ " ");
+            if(temp.left!=null)
+            {
+                temp.left.hd=temp.hd-1;
+                q.add(temp.left);
+            }
+            if(temp.right!=null)
+            {
+                temp.right.hd=temp.hd+1;
+                q.add(temp.right);
+            }
+    }
+        System.out.println(hm);
+    }
+    
+    public static void main(String[] args)
+    {
+        btree tree =new btree();
+        tree.root= new Node(1);
+        tree.root.left= new Node(2);
+        tree.root.right= new Node(3);
+        tree.root.left.right=new Node(4);
+        tree.root.left.left= new Node(5);
+        tree.top();
+    }
+    
+}
